@@ -3,20 +3,20 @@ function initMap() {
 //-------------------------------------------------------------------
 	var element = document.getElementById("map")
 	var opt = {
-		center: {lat: 55.7558, lng: 37.6173},
-		zoom: 3,
+		center: {lat: 55.030199, lng: 82.92043},
+		zoom: 14,
 		mapId: '1234'
 	};
 	var myMap = new google.maps.Map(element, opt);
 //--------------------------------------------------------------------
 	addMarker({
-		coordinates: {lat: 55.7558, lng: 37.6173},
+		coordinates: {lat: 55.041145, lng: 82.917687},
 		info: "<h3>Moscow</h3>"
 	});
 	addMarker({
 		coordinates: {lat: 55.030199, lng: 82.92043},
 		//info: "<h3>Novosibirsk</h3>"
-		info: latlng2distance(55.7558, 37.6173, 55.030199, 82.92043)
+		info: latlng2distance(55.041145, 82.917687, 55.030199, 82.92043)
 	});
 //--------------------------------------------------------------------
 
@@ -56,13 +56,17 @@ function initMap() {
 		if (date.info)
 		{
 			var infoWindow = new google.maps.InfoWindow({
-				content: date.info
+				content: document.write(date.info)
 			});
 			marker.addListener("click", function(){
 				infoWindow.open(myMap, marker);
 			})
 		}
 	}
+
+	// var enter_info = date.info;
+	// var h1 = document.getElementByTagName("h1")[0];
+	// h1.innerHTML = enter_info;
 //--------------------------------------------------------------------	
 	}
 

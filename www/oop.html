@@ -1,17 +1,65 @@
 <!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="vievport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Google Maps Api / JavaScript OOP</title>
-	</head>
-	<body>
-		<div id="map_canvas">
-			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_GTGGge8SF-TlI8A15JsVescUBu1jexw&map_ids=1234?sensor=false">
-			</script>
-		</div>
-		
+<html>
+<head>
+<title>Google Maps demo</title>
+<meta content="author" value="4X_Pro" />
+<meta charset="utf-8" />
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_GTGGge8SF-TlI8A15JsVescUBu1jexw&map_ids=1234&callback=initMap"></script>
+</head>
+<body>
+<div id="map_canvas" style="width:800px; height:500px"></div>
+<button id="moscow">Москва</button>
+<button id="peterburg">Санкт-Петербург</button>
+<button id="n_novgorod">Нижний Новогород</button><br />
+<button id="map_left">← Влево</button>
+<button id="map_right">Вправо →</button>
 
-	</body>
+<script type="text/javascript"><!--
+MyMap = function () {
+    self = this;
+    this.map = new google.maps.Map(document.getElementById("map_canvas"), {
+      zoom: 10,
+      center: { lat: 55.763585, lng: 37.560883 }, // коордианты можно задавать и в таком виде
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    this.markers = new Array;
+    this.markers[0] = new google.maps.Marker({
+      position: new google.maps.LatLng(55.763525,37.560893), map: this.map, title: 'Пробная точка!'
+    });
+    this.moveMapTo = function(lat,lng) {
+        return function(e) {
+          self.map.panTo(new google.maps.LatLng(lat,lng));
+        }
+    }
+
+    // вешаем на событие onclick для каждой кнопки функцию MoveMapTo, которая будет двигать карту в нужный город
+    google.maps.event.addDomListener(document.getElementById('moscow'), 'click', this.moveMapTo(55.763525,37.560893));
+    google.maps.event.addDomListener(document.getElementById('peterburg'), 'click', this.moveMapTo(59.939956, 30.344911));
+    google.maps.event.addDomListener(document.getElementById('n_novgorod'), 'click', this.moveMapTo(56.325418, 43.935667));
+
+    // вешаем на событие onclick для кнопок "влево" и "вправо" анонимную функцию, которая смещает карту на 25 пикселей
+    google.maps.event.addDomListener(document.getElementById('map_left'), 'click', function () {
+      self.map.panBy(-25,0);
+    });
+    google.maps.event.addDomListener(document.getElementById('map_right'), 'click', function () {
+      self.map.panBy(25,0);
+    });
+
+    // создаем таймер, который устанавливает новую позицию маркера, прибавляя небольшое случайное значение к широте (смещение на юг или север) и 0.0001 к долготе (смещая маркер на восток)
+    setInterval(function() {
+        self.markers[0].setPosition(new google.maps.LatLng(self.markers[0].getPosition().lat()+Math.random()*0.0002-0.0001,self.markers[0].getPosition().lng()+0.0001));
+    },100); // таймер срабатывает каждые 100 мс
+
+    // создаем таймер, который раз в 5 секунд проверяет, видим ли маркер, и, если да, центрирует карту на нем
+    setInterval(function() {
+        if (self.map.getBounds().contains(self.markers[0].getPosition())) {
+            self.map.panTo(self.markers[0].getPosition());
+        }
+    },5000);
+
+};
+myMap = new MyMap;
+google.maps.event.addDomListener(window, 'load', myMap);
+--></script>
+</body>
 </html>

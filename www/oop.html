@@ -48,52 +48,6 @@
 
 			    //-----------------------------------------------------------------------------------------
 
-
-			    //Создание массива маркеров абонентов
-			    this.markers = new Array;
-
-			    this.markers[0] = new google.maps.Marker({
-			    	position: new google.maps.LatLng(55.012880,82.950186),
-			    	map: this.map,
-			    	title: 'Абонент 1'
-			    });
-			    this.markers[1] = new google.maps.Marker({
-			    	position: new google.maps.LatLng(55.016173, 82.942786),
-			    	map: this.map,
-			    	title: 'Абонент 2'
-			    });
-			    this.markers[2] = new google.maps.Marker({
-			    	position: new google.maps.LatLng(55.013534, 82.938409),
-			    	map: this.map,
-			    	title: 'Абонент 3'
-			    });
-			    this.markers[3] = new google.maps.Marker({
-			    	position: new google.maps.LatLng(55.018752, 82.948173),
-			    	map: this.map,
-			    	title: 'Абонент 4'
-			    });
-			    this.markers[4] = new google.maps.Marker({
-			    	position: new google.maps.LatLng(55.016199, 82.956863),
-			    	map: this.map,
-			    	title: 'Абонент 5'
-			    });
-			    this.markers[5] = new google.maps.Marker({
-			    	position: new google.maps.LatLng(55.011894, 82.951893),
-			    	map: this.map,
-			    	title: 'Абонент 6'
-			    });
-			    this.markers[6] = new google.maps.Marker({
-			    	position: new google.maps.LatLng(55.020339, 82.939821),
-			    	map: this.map,
-			    	title: 'Абонент 7'
-			    });
-			    this.markers[7] = new google.maps.Marker({
-			    	position: new google.maps.LatLng(55.018795, 82.934596),
-			    	map: this.map,
-			    	title: 'Абонент 8'
-			    });
-			    this.numbers_abonents = 8;
-
 			    //Создание массива маркеров базовых станций
 			    this.station = new Array;
 			    this.pictures = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
@@ -158,17 +112,6 @@
 			    google.maps.event.addDomListener(document.getElementById('map_right'), 'click', function () {
 			      self.map.panBy(25,0);
 			    });
-
-			    //------------------------------------------------------------------------------------------------
-
-			    //Функции для движения маркеров
-			    // создаем таймер, который устанавливает новую позицию маркера, прибавляя небольшое случайное значение к широте (смещение на юг или север) и 0.0001 к долготе (смещая маркер на восток)
-			    setInterval(function() {
-			    	for( let i = 0; i < self.numbers_abonents; i ++)
-			        self.markers[i].setPosition(new google.maps.LatLng(self.markers[i].getPosition().lat()+Math.random()*0.0002-0.0001,self.markers[i].getPosition().lng()+0.0001));
-			    },100); // таймер срабатывает каждые 100 мс
-
-			    //------------------------------------------------------------------------------------------------
 			};
 			//----------------------------------------------------------------------------------------------------
 

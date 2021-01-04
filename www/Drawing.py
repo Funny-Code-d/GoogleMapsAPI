@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw
+from PIL import Image, ImageFilter
 from time import sleep
 import sys
 import os
@@ -274,8 +274,29 @@ def run(filename):
 
     distant_lat_lng = []
 
+    color_rgb = [
+        (255, 0, 0),# RED
+        (255, 69, 0),# Orange red
+        (255, 99, 71),# Tomato
+        (255, 127, 80),# Coral
+        (255, 255, 0),# Yellow
+        (255, 215, 0),# Gold
+        (218, 165, 32),# Goldenrod
+        (0, 255, 0),# Green
+        (50, 205, 50),  # Lime green
+        (34, 139, 34),  # Forest green
+        (0, 255, 255),# Cyan
+        (64, 224, 208),
+        (0, 206, 209),
+        (0, 0, 255),# Blue
+        (0, 0, 205)# Medium Blue
+    ]
 
-    for i in range(3000, 0, -10):
+
+
+
+
+    for i in range(0, 3000, 10):
         buckets.append(i)
 
 
@@ -311,15 +332,50 @@ def run(filename):
         r, g, b = magma_data[int((len(magma_data)-1) * (float(i)/n_colors))]
         colors.append((int(r*256), int(g*256), int(b*256)))
 
-    def color(val, buckets):
-        if val is None:
-            return (255, 255, 255, 0)
 
-        assert len(colors) - 1 == len(buckets)
-        for price, color1 in zip(buckets, colors):
-            if val > price:
-                return color1
-        return colors[-1]
+    # def color(val, buckets):
+    #     if val is None:
+    #         return (255, 255, 255, 0)
+    #
+    #     assert len(colors) - 1 == len(buckets)
+    #     for price, color1 in zip(buckets, colors):
+    #         if val > price:
+    #             return color1
+    #     return colors[-1]
+
+    def color(val):
+        # if val is None:
+        #     return (255, 255, 255, 0)
+        if val <= 140:
+            return color_rgb[0]
+        elif val <= 280:
+            return color_rgb[1]
+        elif val <= 420:
+            return color_rgb[2]
+        elif val <= 560:
+            return color_rgb[3]
+        elif val <= 700:
+            return color_rgb[4]
+        elif val <= 840:
+            return color_rgb[5]
+        elif val <= 980:
+            return color_rgb[6]
+        elif val <= 1120:
+            return color_rgb[7]
+        elif val <= 1260:
+            return color_rgb[8]
+        elif val <= 1400:
+            return color_rgb[9]
+        elif val <= 1540:
+            return color_rgb[10]
+        elif val <= 1680:
+            return color_rgb[11]
+        elif val <= 1820:
+            return color_rgb[12]
+        elif val <= 1960:
+            return color_rgb[13]
+        elif val > 1960:
+            return color_rgb[14]
 
 
     image = Image.new("RGBA", (MAX_X, MAX_Y))
@@ -332,7 +388,7 @@ def run(filename):
 
     for x in range(MAX_X):
         for y in range(MAX_Y):
-            IM[x, y] = color(distant_lat_lng[iter][0], buckets)
+            IM[x, y] = color(distant_lat_lng[iter][0])
             iter += 1
             p += 1
             if p >= processing:
@@ -340,8 +396,11 @@ def run(filename):
                 print(str(present) + '%', end='')
                 present += 1
                 p = 0
-
     image.save("HeatMap.png", "PNG")
+    image = Image.open("HeatMap.png")
+   # rotate = image.rotate(270)
+    blured = image.filter(ImageFilter.GaussianBlur(3))
+    blured.save("HeatMap.png", "PNG")
 
 
 if __name__ == '__main__':

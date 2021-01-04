@@ -10,7 +10,6 @@
 		<div id="map_canvas" style="width:100%; height:600px"></div>
 		<button id="map_left">← Влево</button>
 		<button id="map_right">Вправо →</button>
-		<
 		<script type="text/javascript"><!--
 			MyMap = function () {
 			    self = this;
@@ -53,7 +52,7 @@
 			    this.markers = new Array;
 
 			    this.markers[0] = new google.maps.Marker({
-			    	position: new google.maps.LatLng(55.012880,82.950186),
+			    	position: new google.maps.LatLng(55.016273, 82.943986),
 			    	map: this.map,
 			    	title: 'Абонент 1'
 			    });
@@ -99,7 +98,7 @@
 			    this.pictures = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
 			    
 			    this.station[0] = new google.maps.Marker({
-			    	position: new google.maps.LatLng(55.013787, 82.948433),
+			    	position: new google.maps.LatLng(55.018810, 82.954429),
 			    	map: this.map,
 			    	title: "Базовая станция 1",
 			    	icon: this.pictures	
@@ -161,8 +160,8 @@
 
 			    //------------------------------------------------------------------------------------------------
 
-			    //Функции для движения маркеров
-			    // создаем таймер, который устанавливает новую позицию маркера, прибавляя небольшое случайное значение к широте (смещение на юг или север) и 0.0001 к долготе (смещая маркер на восток)
+			    // Функции для движения маркеров
+			    //создаем таймер, который устанавливает новую позицию маркера, прибавляя небольшое случайное значение к широте (смещение на юг или север) и 0.0001 к долготе (смещая маркер на восток)
 			    setInterval(function() {
 			    	for( let i = 0; i < self.numbers_abonents; i ++)
 			        self.markers[i].setPosition(new google.maps.LatLng(self.markers[i].getPosition().lat()+Math.random()*0.0002-0.0001,self.markers[i].getPosition().lng()+0.0001));
@@ -171,10 +170,34 @@
 			    //------------------------------------------------------------------------------------------------
 			};
 			//----------------------------------------------------------------------------------------------------
+			function updateMapImage() {
+  
+    var bounds = new google.maps.LatLngBounds(swBound, neBound);
+    var srcImage = "./apts1.txt.phantom.1000-2"; /* url_base + ".png";*/
+    var metadata_url = "./ImagesToOverlay/apts1.txt.phantom.1000.metadata.json";  // url_base + ".metadata.json";
+    //fetch(metadata_url, function(response) {
+    //  metadata = JSON.parse(response);
+    //  document.getElementById("n").innerHTML = metadata.n ? metadata.n : "n/a";
+    //  setLegendValues();
+    //});
+    //if (overlay != null) {
+    //  overlay.setMap(null);  // Remove previous overlay.
+    //}
+    overlay = new TQOverlay(bounds, srcImage, map);
+    updateMapImage();
+  }
 
+			function TQOverlay(bounds, image, map) {
+    			this.bounds_ = bounds;
+    			this.image_ = image;
+    			this.map_ = map;
+    			this.div_ = null;
+    			this.setMap(map);
+  			}
 
 			myMap = new MyMap;
 			google.maps.event.addDomListener(window, 'load', myMap);
+			updateMapImage();
 			//----------------------------------------------------------------------------------------------------
 		--></script>
 	</body>

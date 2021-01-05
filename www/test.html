@@ -72,105 +72,20 @@ function initialize() {
 			    	title: "Базовая станция 6",
 			    	icon: this.pictures
 			    });
-    // google.maps.event.addListener(map, 'bounds_changed', function () {
-    //     console.log(map.getBounds());
-    //     console.log(map.getZoom());
-    //     console.log(map.getCenter());
-    // });
-    // google.maps.event.addListener(map, 'click', function (e) {
-    //   var loc = e.latLng;
 
-    //   var latfrac = (neBound.lat() - loc.lat()) / (neBound.lat() - swBound.lat());
-    //   var lngfrac = (neBound.lng() - loc.lng()) / (neBound.lng() - swBound.lng());
-
-    //   if (latfrac < 0 || lngfrac < 0 || latfrac >= 1 || lngfrac >= 1) {
-    //     return;
-    //   }
-
-    //  var rendersize = 500;
-
-    //   var x = (1-lngfrac) * rendersize;
-    //   var y = latfrac * rendersize;
-
-    //   // apparently the only way to get pixel level data is by putting it
-    //   // in a canvas.  that's nuts.
-    //   var canvas = document.createElement('canvas');
-    //   canvas.width = rendersize;
-    //   canvas.height = rendersize;
-    //   ctx = canvas.getContext('2d');
-    //   ctx.drawImage(currentOverlayImg, 0, 0, rendersize, rendersize);
-    //   var pixelData = ctx.getImageData(x, y, 1, 1).data;
-
-    //   var r = pixelData[0];
-    //   var g = pixelData[1];
-    //   var b = pixelData[2];
-
-    //   // now we know the color, look up the price
-
-    //   function toHex(c) {
-    //     var hex = c.toString(16).toUpperCase();
-    //     return hex.length == 1 ? "0" + hex : hex;
-    //   }
-
-    //   var hexycolor = "#" + toHex(r) + toHex(g) + toHex(b);
-
-    // });
 
     updateMapImage();
-    //setLegendValues();
-    //alert(metadata);
 
   }
 
 
 
-
-
-
-  // function roundFive(n) {
-  //   return Math.round(n/5)*5;
-  // }
-
- 
-
-  // function setLegendValues() {
-
-  //   if (metadata.buckets) {
-  //     var key_spans = document.getElementsByClassName("key");
-  //     for (var i = 0 ; i < key_spans.length && i < metadata.buckets.length; i++) {
-  //         key_spans[i].innerHTML = Math.round(metadata.buckets[i]/1000);
-  //     }
-     
-  //   }
-   
-  // }
-
-
-
-  // function fetch(url, callback) {
-  //   var xhr = new XMLHttpRequest();
-  //   xhr.onreadystatechange = function() {
-  //     if (xhr.readyState==4 && xhr.status==200) {
-  //       callback(xhr.responseText);
-  //     }
-  //   };
-  //   xhr.open("GET",url,true);
-  //   xhr.send();
-  // }
-
  function updateMapImage() {
   
     var bounds = new google.maps.LatLngBounds(swBound, neBound);
     var srcImage = "./ImagesToOverlay/apts1.txt.phantom.1000-2.png"; /* url_base + ".png";*/
-    var metadata_url = "./ImagesToOverlay/apts1.txt.phantom.1000.metadata.json";  // url_base + ".metadata.json";
-    //fetch(metadata_url, function(response) {
-    //  metadata = JSON.parse(response);
-    //  document.getElementById("n").innerHTML = metadata.n ? metadata.n : "n/a";
-    //  setLegendValues();
-    //});
-    //if (overlay != null) {
-    //  overlay.setMap(null);  // Remove previous overlay.
-    //}
+
+    
     overlay = new TQOverlay(bounds, srcImage, map);
 
   }

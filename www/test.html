@@ -10,6 +10,7 @@
 		<div id="map_canvas" style="width:100%; height:600px"></div>
 		<button id="map_left">← Влево</button>
 		<button id="map_right">Вправо →</button>
+		<button id='add_stat'>Добавить</button>
 		<script type="text/javascript">
 			
 			  var overlay = null;
@@ -72,7 +73,19 @@ function initialize() {
 			    	title: "Базовая станция 6",
 			    	icon: this.pictures
 			    });
-
+			    var number_station = 6;
+			    function add_station(lat, lng, title_){
+			    	this.station[number_station] = new google.maps.Marker({
+			    		position: new google.maps.LatLng(lat, lng),
+			    		map: this.map,
+			    		title: title_,
+			    		icon: this.pictures
+			    	});
+			    }
+			google.maps.event.addDomListener(document.getElementById('add_stat'), 'click', function () {
+			    //self.map.panBy(-25,0);
+			    alert('hi');
+			});
 
     updateMapImage();
 

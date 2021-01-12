@@ -11,6 +11,8 @@
 		<button id="map_left">← Влево</button>
 		<button id="map_right">Вправо →</button>
 		<button id='add_stat'>Добавить</button>
+		<p>Ввод широты:<input type="text" name="lat" id="newlat"></p>
+		<p>Ввод долготы:<input type="text" name="lng" id="newlng"></p>
 		<script type="text/javascript">
 			
 			  var overlay = null;
@@ -19,7 +21,6 @@
   var neBound = new google.maps.LatLng(55.031793718300705, 82.97983754850291);
 
   var currentOverlayImg;
-
   TQOverlay.prototype = new google.maps.OverlayView();
 function initialize() {
       var latlng = new google.maps.LatLng(55.014879, 82.948738);
@@ -73,18 +74,22 @@ function initialize() {
 			    	title: "Базовая станция 6",
 			    	icon: this.pictures
 			    });
+
 			    var number_station = 6;
-			    function add_station(lat, lng, title_){
+			    function add_station(lat, lng){
 			    	this.station[number_station] = new google.maps.Marker({
 			    		position: new google.maps.LatLng(lat, lng),
 			    		map: this.map,
-			    		title: title_,
 			    		icon: this.pictures
 			    	});
+			    	number_station = number_station + 1;
 			    }
+			   // var newlat;
+			   // var newlng
 			google.maps.event.addDomListener(document.getElementById('add_stat'), 'click', function () {
-			    //self.map.panBy(-25,0);
-			    alert('hi');
+				var newlat = document.getElementById('newlat').value;
+				var newlng = document.getElementById('newlng').value;
+				add_station(newlat, newlng);
 			});
 
     updateMapImage();

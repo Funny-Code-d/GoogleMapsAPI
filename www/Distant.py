@@ -59,7 +59,7 @@ MIN_LAT, MIN_LNG, MAX_LAT, MAX_LNG = boundingBox(55.013787, 82.948433, 2)
 
 #Запись данных в файл
 #Эти данные нужны программе для создания изображения
-with open("min_max.txt", "w") as file:
+with open("for_python/min_max.txt", "w") as file:
     file.write(str(MIN_LAT) + ' ' + str(MIN_LNG) + ' ' + str(MAX_LAT) + ' ' + str(MAX_LNG))
 
 
@@ -152,13 +152,9 @@ def create_file(filename1, filename2):
         x += 0.0001
         check_x += 1
     if persent  >= 100:
-        print('file completed successfully')
-    with open("size_image.txt", 'w') as file:
+        print('\nfile completed successfully')
+    with open("for_python/size_image.txt", 'w') as file:
         file.write(str(check_x) + ' ' + str(int(check_y/check_x)))
 
 if __name__ == '__main__':
-    if sys.argv[1] == 'help':
-        print("В качестве параметров передать названия файлов")
-        print('1. Куда записывать данные (файл будет перезаписан)\n2. Откуда брать координаты базовых станций')
-    else:
-        create_file(sys.argv[1], sys.argv[2])
+    create_file('for_python/1.txt', 'for_python/2.txt')

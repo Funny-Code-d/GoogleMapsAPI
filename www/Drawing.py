@@ -33,7 +33,7 @@ def run(filename):
     ]
 
 
-    with open('min_max.txt', 'r') as file:
+    with open('for_python/min_max.txt', 'r') as file:
         for line in file:
             if not line[0].isdigit():
                 continue
@@ -49,7 +49,7 @@ def run(filename):
             dist, x_coordinate, y_coordinate = line.strip().split()
             distant_lat_lng.append([int(dist), float(x_coordinate), float(y_coordinate)])
 
-    with open('size_image.txt', 'r') as file:
+    with open('for_python/size_image.txt', 'r') as file:
         for line in file:
             if not line[0].isdigit():
                 continue
@@ -110,15 +110,12 @@ def run(filename):
                 print(str(present) + '%', end='')
                 present += 1
                 p = 0
-
+    if present >= 100:
+        print("\nfile completed successfully")
     rotate = image.rotate(90, expand=True)
     blured = rotate.filter(ImageFilter.GaussianBlur(3))
-    blured.save("HeatMap.png", "PNG")
+    blured.save("ImagesToOverlay/HeatMap.png", "PNG")
 
 
 if __name__ == '__main__':
-    if sys.argv[1] == 'help':
-        print("***Программа для создания тепловой карты***")
-        print("-В качестве опции передать имя файла в котором записанны данные, необходимые для построения рисунка")
-    else:
-        run(sys.argv[1])
+    run('for_python/1.txt')

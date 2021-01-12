@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Google Maps</title>
+		<meta content="author" value="4X_Pro" />
+		<meta charset="utf-8" />
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_GTGGge8SF-TlI8A15JsVescUBu1jexw&map_ids=1234&libraries=visualization"></script>
+	</head>
+	<body>
+		<div id="map_canvas" style="width:100%; height:600px"></div>
+		<button id="map_left">← Влево</button>
+		<button id="map_right">Вправо →</button>
+		<script type="text/javascript"><!--
+			MyMap = function () {
+			    self = this;
+			    //----------------------------------------------------------------------------------------
+			    //Загрузка карты
+			    //Задаются: зум (zoom), долгота(lat), широта(lng)
+			    this.map = new google.maps.Map(document.getElementById("map_canvas"), {
+			      zoom: 15,
+			      center: { lat: 55.014879, lng: 82.948738 }, // коордианты можно задавать и в таком виде
+			      mapTypeId: google.maps.MapTypeId.ROADMAP
+			    });
+			    //----------------------------------------------------------------------------------------
+			    
+			    //Создание тепловой карты
+			    //Координаты точек
+			    this.heatMapData = [
+			    { location: new google.maps.LatLng(55.013787, 82.948433), weight: 10 },
+			    { location: new google.maps.LatLng(55.018809, 82.954429), weight: 10 },
+			    { location: new google.maps.LatLng(55.016644, 82.939773), weight: 10 },
+			    { location: new google.maps.LatLng(55.021756, 82.947348), weight: 10 },
+			    { location: new google.maps.LatLng(55.013205, 82.962531), weight: 10 },
+			    { location: new google.maps.LatLng(55.022866, 82.934277), weight: 10 },
+			    { location: new google.maps.LatLng(55.010354, 82.938554), weight: 10 }
+			    ];
+			    //Сохдание объекта, для отображаения всех точек на карте
+			    this.heatmap = new google.maps.visualization.HeatmapLayer({
+			    	data: this.heatMapData,
+			    	radius: 200,
+			    	opacity: 0.4
+			    });
+			    this.heatmap.setMap(this.map);
+
+
+
+
+			    //-----------------------------------------------------------------------------------------
+
+
+			    //Создание массива маркеров абонентов
+			    this.markers = new Array;
+
+			    this.markers[0] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.016273, 82.943986),
+			    	map: this.map,
+			    	title: 'Абонент 1'
+			    });
+			    this.markers[1] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.016173, 82.942786),
+			    	map: this.map,
+			    	title: 'Абонент 2'
+			    });
+			    this.markers[2] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.013534, 82.938409),
+			    	map: this.map,
+			    	title: 'Абонент 3'
+			    });
+			    this.markers[3] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.018752, 82.948173),
+			    	map: this.map,
+			    	title: 'Абонент 4'
+			    });
+			    this.markers[4] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.016199, 82.956863),
+			    	map: this.map,
+			    	title: 'Абонент 5'
+			    });
+			    this.markers[5] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.011894, 82.951893),
+			    	map: this.map,
+			    	title: 'Абонент 6'
+			    });
+			    this.markers[6] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.020339, 82.939821),
+			    	map: this.map,
+			    	title: 'Абонент 7'
+			    });
+			    this.markers[7] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.018795, 82.934596),
+			    	map: this.map,
+			    	title: 'Абонент 8'
+			    });
+			    this.numbers_abonents = 8;
+
+			    //Создание массива маркеров базовых станций
+			    this.station = new Array;
+			    this.pictures = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+			    
+			    this.station[0] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.018810, 82.954429),
+			    	map: this.map,
+			    	title: "Базовая станция 1",
+			    	icon: this.pictures	
+			    });
+			    
+			    this.station[1] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.018809, 82.954429),
+			    	map: this.map,
+			    	title: "Базовая станция 2",
+			    	icon: this.pictures
+			    });
+
+			    this.station[2] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.016644, 82.939773),
+			    	map: this.map,
+			    	title: "Базовая станция 3",
+			    	icon: this.pictures
+			    });
+
+			    this.station[3] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.021756, 82.947348),
+			    	map: this.map,
+			    	title: "Базовая станция 4",
+			    	icon: this.pictures
+			    });
+
+			    this.station[4] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.013205, 82.962531),
+			    	map: this.map,
+			    	title: "Базовая станция 5",
+			    	icon: this.pictures
+			    });
+
+			    this.station[5] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.022866, 82.934277),
+			    	map: this.map,
+			    	title: "Базовая станция 6",
+			    	icon: this.pictures
+			    });
+
+			    this.station[6] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.010354, 82.938554),
+			    	map: this.map,
+			    	title: "Базовая станция 7",
+			    	icon: this.pictures
+			    });
+			    //-------------------------------------------------------------------------------------------
+
+			    //----------------------------------------------------------------------------------------------
+
+			    //Кнопки для движения карты
+			    // вешаем на событие onclick для кнопок "влево" и "вправо" анонимную функцию, которая смещает карту на 25 пикселей
+			    google.maps.event.addDomListener(document.getElementById('map_left'), 'click', function () {
+			      self.map.panBy(-25,0);
+			    });
+			    google.maps.event.addDomListener(document.getElementById('map_right'), 'click', function () {
+			      self.map.panBy(25,0);
+			    });
+
+			    //------------------------------------------------------------------------------------------------
+
+			    // Функции для движения маркеров
+			    //создаем таймер, который устанавливает новую позицию маркера, прибавляя небольшое случайное значение к широте (смещение на юг или север) и 0.0001 к долготе (смещая маркер на восток)
+			    setInterval(function() {
+			    	for( let i = 0; i < self.numbers_abonents; i ++)
+			        self.markers[i].setPosition(new google.maps.LatLng(self.markers[i].getPosition().lat()+Math.random()*0.0002-0.0001,self.markers[i].getPosition().lng()+0.0001));
+			    },100); // таймер срабатывает каждые 100 мс
+
+			    //------------------------------------------------------------------------------------------------
+			};
+			//----------------------------------------------------------------------------------------------------
+			function updateMapImage() {
+  
+    var bounds = new google.maps.LatLngBounds(swBound, neBound);
+    var srcImage = "./apts1.txt.phantom.1000-2"; /* url_base + ".png";*/
+    var metadata_url = "./ImagesToOverlay/apts1.txt.phantom.1000.metadata.json";  // url_base + ".metadata.json";
+    //fetch(metadata_url, function(response) {
+    //  metadata = JSON.parse(response);
+    //  document.getElementById("n").innerHTML = metadata.n ? metadata.n : "n/a";
+    //  setLegendValues();
+    //});
+    //if (overlay != null) {
+    //  overlay.setMap(null);  // Remove previous overlay.
+    //}
+    overlay = new TQOverlay(bounds, srcImage, map);
+    updateMapImage();
+  }
+
+			function TQOverlay(bounds, image, map) {
+    			this.bounds_ = bounds;
+    			this.image_ = image;
+    			this.map_ = map;
+    			this.div_ = null;
+    			this.setMap(map);
+  			}
+
+			myMap = new MyMap;
+			google.maps.event.addDomListener(window, 'load', myMap);
+			updateMapImage();
+			//----------------------------------------------------------------------------------------------------
+		--></script>
+	</body>
+</html>

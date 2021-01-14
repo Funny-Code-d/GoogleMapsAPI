@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Google Maps</title>
+		<meta content="author" value="4X_Pro" />
+		<meta charset="utf-8" />
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_GTGGge8SF-TlI8A15JsVescUBu1jexw&map_ids=1234&libraries=visualization"></script>
+	</head>
+	<body onload="initialize()">
+		<div id="map_canvas" style="width:100%; height:600px"></div>
+		<button id="map_left">← Влево</button>
+		<button id="map_right">Вправо →</button>
+		<button id='add_stat'>Добавить</button>
+		<p>Ввод широты:<input type="text" name="lat" id="newlat"></p>
+		<p>Ввод долготы:<input type="text" name="lng" id="newlng"></p>
+		<script type="text/javascript">
+			
+			  var overlay = null;
+ 			 var map;
+ 			   var swBound = new google.maps.LatLng(54.99578028169929, 82.91702845149706);
+  var neBound = new google.maps.LatLng(55.031793718300705, 82.97983754850291);
+
+  var currentOverlayImg;
+  TQOverlay.prototype = new google.maps.OverlayView();
+function initialize() {
+      var latlng = new google.maps.LatLng(55.014879, 82.948738);
+    var myOptions = {
+      zoom: 15,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    			this.heatMapData = [
+			    // { location: new google.maps.LatLng(55.013787, 82.948433), weight: 10 },
+			    { location: new google.maps.LatLng(55.018809, 82.954429), weight: 10 },
+			    { location: new google.maps.LatLng(55.016644, 82.939773), weight: 10 },
+			    { location: new google.maps.LatLng(55.021756, 82.947348), weight: 10 },
+			    { location: new google.maps.LatLng(55.013205, 82.962531), weight: 10 },
+			    { location: new google.maps.LatLng(55.022866, 82.934277), weight: 10 },
+			    { location: new google.maps.LatLng(55.010354, 82.938554), weight: 10 }
+			    ];
+			    //Сохдание объекта, для отображаения всех точек на карте
+			    this.heatmap = new google.maps.visualization.HeatmapLayer({
+			    	data: this.heatMapData,
+			    	radius: 200,
+			    	opacity: 0.4
+			    });
+			    this.heatmap.setMap(this.map);
+
+     this.station = new Array;
+			    this.pictures = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+			    
+			    this.station[0] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.018810, 82.954429),
+			    	map: this.map,
+			    	title: "Базовая станция 1",
+			    	icon: this.pictures	
+			    });
+			    
+			    this.station[1] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.016644, 82.939773),
+			    	map: this.map,
+			    	title: "Базовая станция 2",
+			    	icon: this.pictures
+			    });
+
+			    this.station[2] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.021756, 82.947348),
+			    	map: this.map,
+			    	title: "Базовая станция 3",
+			    	icon: this.pictures
+			    });
+
+			    this.station[3] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.013205, 82.962531),
+			    	map: this.map,
+			    	title: "Базовая станция 4",
+			    	icon: this.pictures
+			    });
+
+			    this.station[4] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.022866, 82.934277),
+			    	map: this.map,
+			    	title: "Базовая станция 5",
+			    	icon: this.pictures
+			    });
+
+			    this.station[5] = new google.maps.Marker({
+			    	position: new google.maps.LatLng(55.010354, 82.938554),
+			    	map: this.map,
+			    	title: "Базовая станция 6",
+			    	icon: this.pictures
+			    });
+
+			    var number_station = 6;
+			    function add_station_touch(lat, lng){
+			    	this.station[number_station] = new google.maps.Marker({
+			    		position: new google.maps.LatLng(lat, lng),
+			    		map: this.map,
+			    		icon: this.pictures
+			    	});
+			    	number_station = number_station + 1;
+			    }
+
+			    function add_station_color(lat, lng){
+			    	mapDate = [{location: new google.maps.LatLng(lat, lng), weight: 10}];
+			    	add_heatMap = new google.maps.visualization.HeatmapLayer({
+			    		data: mapDate,
+			    		radius: 200,
+			    		opacity: 0.4
+			    	})
+			    	add_heatMap.setMap(this.map);
+			    }
+
+			   // var newlat;
+			   // var newlng
+			google.maps.event.addDomListener(document.getElementById('add_stat'), 'click', function () {
+				var newlat = document.getElementById('newlat').value;
+				var newlng = document.getElementById('newlng').value;
+				add_station_touch(newlat, newlng);
+				add_station_color(newlat, newlng);
+			});
+
+		}
+		</script>
+	</body>
+</html>

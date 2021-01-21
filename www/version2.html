@@ -25,7 +25,7 @@
   				map.addListener("click", (e) => {
     				placeMarkerAndPanTo(e.latLng, map, this.pictures);
   				});
-  			//------------------------------------------------------------------------------------------------
+  // 			//------------------------------------------------------------------------------------------------
 
   				this.heatMapData = [
 			    	{ location: new google.maps.LatLng(55.018809, 82.954429), weight: 10 },
@@ -38,11 +38,11 @@
 			    //Сохдание объекта, для отображаения всех точек на карте
 			    this.heatmap = new google.maps.visualization.HeatmapLayer({
 			    	data: this.heatMapData,
-			    	radius: 200,
+			    	radius: 100,
 			    	opacity: 0.4
 			    });
 			    this.heatmap.setMap(map);
-			//-----------------------------------------------------------------------------------------------
+		// 	//-----------------------------------------------------------------------------------------------
 
      			this.station = new Array;
 			    this.pictures = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
@@ -106,7 +106,7 @@
 			    	opacity: 0.4
 			    });
 			    add_heatMap.setMap(map);
-			}
+		 	}
 		</script>
 	</body>
 </html>
